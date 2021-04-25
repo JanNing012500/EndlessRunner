@@ -4,16 +4,20 @@ class Play extends Phaser.Scene {
     }
 
     preload() {
-        // Load these Images and Sprites 
-        this.load.image("player", "./assets/person.png");
+        // load images/tiles
+        this.load.image('submarine', './assets/Submarine.png');
+        this.load.image('ocean', './assets/ocean.png');
+    }
 
-        // Change background Colour
-        game.stage.backgroundColor = "#00ffff"; 
+    create() {
+        this.ocean = this.add.tileSprite(0, 0, 480, 640, 'ocean').setOrigin(0,0);
+        this.p1Sub = new Submarine(this, game.config.width/2, borderUISize - borderPadding, 'submarine', 64, 32).setOrigin(0.5, 0);
+        
+    }
 
-        // add Character Sprite
-        this.player = game.add.sprite(game.width * .2, ground.y25, "player");
-
-
+    update() {
+        // Scrolling Background
+        this.ocean.tilePositionY += 5;
     }
 
 }
