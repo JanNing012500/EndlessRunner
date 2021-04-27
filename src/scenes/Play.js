@@ -12,7 +12,7 @@ class Play extends Phaser.Scene {
 
     create() {
         this.ocean = this.add.tileSprite(0, 0, 480, 640, 'ocean').setOrigin(0,0);
-        this.p1Sub = new Submarine(this, game.config.width/2, borderUISize - 42, 'submarine', 0, 64, 42).setOrigin(0.5, 0);
+        this.p1Sub = new Submarine(this, game.config.width/2, borderUISize - 42, 'submarine', 0, 42, 30).setOrigin(0.5, 0);
 
         // define keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
@@ -53,7 +53,7 @@ class Play extends Phaser.Scene {
                 arr.push(num);
             }
         } while (arr.length < n);
-        // returns a randopm integer 0 to 5;
+        // returns a randopm integer 0 to 5 with no repeat;
         
         return arr;
     }
