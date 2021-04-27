@@ -10,17 +10,19 @@ class Fish extends Phaser.GameObjects.Sprite {
         this.moveSpeed = 5;
     }
 
+    // keep the variable in the parameter so the fish will spawn
+    // at the wanted position.
     update(pos) {
         this.y -= this.moveSpeed;
 
         if(this.y <= 0 - this.height) {
-            this.y = game.config.height;
-            this.x = (pos * 60) + borderUISize;
+            this.reset(pos);
         }
     }
 
     //position reset
     reset() {
-        this.x = game.config.width;
+        this.y = game.config.height;
+        this.x = (pos * 60) + borderUISize;
     }
 }

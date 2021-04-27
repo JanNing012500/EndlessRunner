@@ -71,16 +71,18 @@ class Play extends Phaser.Scene {
         // Scrolling Background
         this.ocean.tilePositionY += 5;
         
-        var arr1 = [0, 1, 4, 5];
-        if (this.fish1.y <= 0 - this.fish1.height + 1) {
+        // The array will contain number position for the fish,
+        // when the fish reach the top, the array will hold different number
+        var arr1 = [];
+        if (this.fish1.y <= borderUISize - this.fish1.height + 1) {
             arr1 = this.generateRandom();
         }
 
         this.p1Sub.update();
-        this.fish1.update();
-        this.fish2.update();
-        this.fish3.update();
-        this.fish4.update();
+        this.fish1.update(arr1[0]);
+        this.fish2.update(arr1[1]);
+        this.fish3.update(arr1[2]);
+        this.fish4.update(arr1[3]);
 
         //check collisions
         if(this.checkCollision(this.p1Sub, this.fish1)) {
@@ -125,14 +127,11 @@ class Play extends Phaser.Scene {
                 return false;
             }
     }
-    
-   
 
-
+    // returns a randopm integer 0 to 5 with no repeat;
     generateRandom() {
         const n = 4;
         const arr = [];
-
         do {
             const num = Math.floor(Math.random() * 6);
 
@@ -140,8 +139,6 @@ class Play extends Phaser.Scene {
                 arr.push(num);
             }
         } while (arr.length < n);
-        // returns a randopm integer 0 to 5 with no repeat;
-        
         return arr;
     }
 
