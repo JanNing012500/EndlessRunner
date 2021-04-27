@@ -8,6 +8,15 @@ class Play extends Phaser.Scene {
         this.load.image('submarine', './assets/Submarine.png');
         this.load.image('smallFish', './assets/fish.png');
         this.load.image('ocean', './assets/ocean.png');
+
+        // load spritesheet
+        this.load.spritesheet('explosion', './assets/explosion.png', {
+            frameWidth: 64, 
+            frameHeight: 32, 
+            startFrame: 0, 
+            endFrame: 9
+        });
+        
     }
 
     create() {
@@ -18,6 +27,18 @@ class Play extends Phaser.Scene {
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
+        // animation config 
+        this.anims.create({
+        key: 'explode', 
+        frames: this.anims.generateFrameNumbers('explosion', {
+            start: 0, 
+            end: 9, 
+            first: 0
+        }),
+        frameRate: 30 
+        });
+
 
         // add 3 fish at different locations;
         this.fish1 = new Fish(this, 0 * 60 + borderUISize, game.config.height, 'smallFish', 0, 60, 16).setOrigin(0.5, 0);
@@ -38,10 +59,6 @@ class Play extends Phaser.Scene {
         this.fish2.update(arr1[1]);
         this.fish3.update(arr1[2]);
         this.fish4.update(arr1[3]);
-
-
-
-
 
         
         if(this.checkCollision(this.p1Sub, this.fish1)) {
@@ -68,8 +85,6 @@ class Play extends Phaser.Scene {
             //this.clock.delay += 3000;
         }
 
-
-        
     }
 
 
@@ -96,9 +111,9 @@ class Play extends Phaser.Scene {
             ship.alpha = 1; 
             boom.destroy(); 
         }); 
-        this.p1Score += ship.points; 
-        this.scoreLeft.text = this.p1Score;
-        this.sound.play('sfx_explosion');
+        //this.p1Score += ship.points; 
+        //this.scoreLeft.text = this.p1Score;
+        //this.sound.play('sfx_explosion');
     }
 
 
