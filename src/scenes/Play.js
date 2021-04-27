@@ -39,32 +39,51 @@ class Play extends Phaser.Scene {
         this.fish3.update(arr1[2]);
         this.fish4.update(arr1[3]);
 
+
+
+
+
+        
         if(this.checkCollision(this.p1Sub, this.fish1)) {
-            this.pRocket.reset(); 
-            this.shipExplode(this.ship5); 
-            this.clock.delay += 3000;
+            this.p1Sub.reset(); 
+            //this.shipExplode(this.ship5); 
+            //this.clock.delay += 3000;
         }
 
         if(this.checkCollision(this.p1Sub, this.fish2)) {
-            this.pRocket.reset(); 
-            this.shipExplode(this.ship5); 
-            this.clock.delay += 3000;
+            this.p1Sub.reset(); 
+           //this.shipExplode(this.ship5); 
+            //this.clock.delay += 3000;
         }
 
         if(this.checkCollision(this.p1Sub, this.fish3)) {
-            this.pRocket.reset(); 
-            this.shipExplode(this.ship5); 
-            this.clock.delay += 3000;
+            this.p1Sub.reset(); 
+            //this.shipExplode(this.ship5); 
+            //this.clock.delay += 3000;
         }
 
         if(this.checkCollision(this.p1Sub, this.fish4)) {
-            this.pRocket.reset(); 
-            this.shipExplode(this.ship5); 
-            this.clock.delay += 3000;
+            this.p1Sub.reset(); 
+            //this.shipExplode(this.ship5); 
+            //this.clock.delay += 3000;
         }
 
 
         
+    }
+
+
+
+    checkCollision(Fish, Submarine) {
+        // simple AABB checking
+        if( Submarine.x < Fish.x + Fish.width &&
+            Submarine.x + Submarine.width > Fish.x &&
+            Submarine.y < Fish.y + Fish.height &&
+            Submarine.height + Submarine.y > Fish.y) {
+                return true;
+            } else {
+                return false;
+            }
     }
 
     generateRandom() {
