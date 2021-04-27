@@ -39,6 +39,31 @@ class Play extends Phaser.Scene {
         this.fish3.update(arr1[2]);
         this.fish4.update(arr1[3]);
 
+        if(this.checkCollision(this.p1Sub, this.fish1)) {
+            this.pRocket.reset(); 
+            this.shipExplode(this.ship5); 
+            this.clock.delay += 3000;
+        }
+
+        if(this.checkCollision(this.p1Sub, this.fish2)) {
+            this.pRocket.reset(); 
+            this.shipExplode(this.ship5); 
+            this.clock.delay += 3000;
+        }
+
+        if(this.checkCollision(this.p1Sub, this.fish3)) {
+            this.pRocket.reset(); 
+            this.shipExplode(this.ship5); 
+            this.clock.delay += 3000;
+        }
+
+        if(this.checkCollision(this.p1Sub, this.fish4)) {
+            this.pRocket.reset(); 
+            this.shipExplode(this.ship5); 
+            this.clock.delay += 3000;
+        }
+
+
         
     }
 
