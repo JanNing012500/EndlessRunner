@@ -85,6 +85,22 @@ class Play extends Phaser.Scene {
                 return false;
             }
     }
+    
+    shipExplode(Submarine) {
+        ship.alpha = 0; 
+        let boom = this.add.sprite(ship.x, ship.y, 'explosion').setOrigin(0, 0); 
+        boom.anims.play('explode'); 
+        game.settings.gameTimer = game.settings.gameTimer + 2; 
+        boom.on('animationcomplete', () => {
+            ship.reset(); 
+            ship.alpha = 1; 
+            boom.destroy(); 
+        }); 
+        this.p1Score += ship.points; 
+        this.scoreLeft.text = this.p1Score;
+        this.sound.play('sfx_explosion');
+    }
+
 
     generateRandom() {
         const n = 4;
