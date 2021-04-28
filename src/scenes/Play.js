@@ -84,28 +84,28 @@ class Play extends Phaser.Scene {
         this.fish3.update(arr1[2]);
         this.fish4.update(arr1[3]);
 
-        //check collisions
+        //check collisions  //we need to add a reset in sub.js
         if(this.checkCollision(this.p1Sub, this.fish1)) {
-            this.p1Sub.reset(); 
+            //this.p1Sub.reset(); 
             this.fishExplode(this.fish1);
         }
 
         if(this.checkCollision(this.p1Sub, this.fish2)) {
-            this.p1Sub.reset(); 
+            //this.p1Sub.reset(); 
             this.fishExplode(this.fish2);
            //this.shipExplode(this.ship5); 
             //this.clock.delay += 3000;
         }
 
         if(this.checkCollision(this.p1Sub, this.fish3)) {
-            this.p1Sub.reset(); 
+            //this.p1Sub.reset(); 
             this.fishExplode(this.fish3);
             //this.shipExplode(this.ship5); 
             //this.clock.delay += 3000;
         }
 
         if(this.checkCollision(this.p1Sub, this.fish4)) {
-            this.p1Sub.reset(); 
+            //this.p1Sub.reset(); 
             this.fishExplode(this.fish4);
             //this.shipExplode(this.ship5); 
             //this.clock.delay += 3000;
