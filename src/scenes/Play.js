@@ -9,6 +9,7 @@ class Play extends Phaser.Scene {
         this.load.image('submarine', './assets/Submarine.png');
         this.load.image('smallFish', './assets/fish.png');
         this.load.image('ocean', './assets/ocean.png');
+        this.load.image('heart', './assets/heart.png');
 
         // load spritesheet
         this.load.spritesheet('explosion', './assets/explosion.png', {
