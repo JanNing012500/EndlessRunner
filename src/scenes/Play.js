@@ -23,6 +23,11 @@ class Play extends Phaser.Scene {
 
     create() {
         this.ocean = this.add.tileSprite(0, 0, 480, 640, 'ocean').setOrigin(0,0);
+
+        // Shows heart on screen. Dont remember how to just add images so I just copied the Submarine one and
+        // the heart is currently top left corner. dont know how to move it :/  - Sam 
+        this.lives = new Submarine(this, game.config.width/12, borderUISize / 120, 'heart', 0, 30, 30).setOrigin(0.5, 0);
+
         
           
         
@@ -35,8 +40,6 @@ class Play extends Phaser.Scene {
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
         
-       
-
 
         // add 3 fish at different locations;
         this.fish1 = new Fish(this, 0 * 60 + borderUISize, game.config.height, 'smallFish', 0, 60, 16).setOrigin(0.5, 0);
