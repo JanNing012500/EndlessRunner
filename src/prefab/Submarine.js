@@ -10,9 +10,9 @@ class Submarine extends Phaser.GameObjects.Sprite {
     }
 
     update() {
-        if (keyLEFT.isDown && this.x >= borderUISize) {
+        if (keyLEFT.isDown && this.x > borderUISize + borderPadding/2) {
             this.x -= this.moveSpeed;
-        } else if (keyRIGHT.isDown && this.x <= game.config.width - borderUISize - this.width/2) {
+        } else if (keyRIGHT.isDown && this.x <= 5*60 + borderUISize + borderPadding/2) {
             this.x += this.moveSpeed;
         }
     }

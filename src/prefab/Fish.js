@@ -23,6 +23,6 @@ class Fish extends Phaser.GameObjects.Sprite {
     //position reset
     reset(pos) {
         this.y = game.config.height;
-        this.x = (pos * 60) + borderUISize;
+        this.x = (pos * 60) + borderUISize + borderPadding/2;
     }
 }

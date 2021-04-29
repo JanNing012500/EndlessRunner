@@ -7,9 +7,9 @@ class Play extends Phaser.Scene {
 
     preload() {
         // load images/tiles
-        // this.load.image('submarine', './assets/Submarine.png');
-        // this.load.image('submarine2', './assets/Submarine2.png');
-        // this.load.image('smallFish', './assets/fish.png');
+        this.load.image('submarine', './assets/Submarine.png');
+        this.load.image('submarine2', './assets/Submarine2.png');
+        this.load.image('smallFish', './assets/fish.png');
         this.load.image('ocean', './assets/ocean.png');
         this.load.image('heart', './assets/heart.png');
         this.load.audio('sfx_music','./assets/Music.wav');
@@ -40,7 +40,7 @@ class Play extends Phaser.Scene {
         // this.lives = new Submarine(this, borderPadding, borderPadding, 'heart', 0, 30, 30).setOrigin(1, 0.5);
     
         //add sub (p1)
-        this.p1Sub = new Submarine(this, game.config.width/2, borderUISize - 42, 'submarine', 0, 42, 16).setOrigin(0.5, 0);
+        this.p1Sub = new Submarine(this, game.config.width/2, borderUISize - 42, 'submarine', 0, 42, 28).setOrigin(0, 0);
 
         // define keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
@@ -50,10 +50,10 @@ class Play extends Phaser.Scene {
         
 
         // add 3 fish at different locations;
-        this.fish1 = new Fish(this, 0 * 60 + borderUISize, game.config.height, 'smallFish', 0, 42, 16).setOrigin(0.5, 0);
-        this.fish2 = new Fish(this, 1 * 60 + borderUISize, game.config.height, 'smallFish', 0, 42, 16).setOrigin(0.5, 0);
-        this.fish3 = new Fish(this, 4 * 60 + borderUISize, game.config.height, 'smallFish', 0, 42, 16).setOrigin(0.5, 0);
-        this.fish4 = new Fish(this, 5 * 60 + borderUISize, game.config.height, 'smallFish', 0, 42, 16).setOrigin(0.5, 0);
+        this.fish1 = new Fish(this, (0 * 60) + borderUISize + borderPadding/2, game.config.height, 'smallFish', 0, 48, 24).setOrigin(0, 0);
+        this.fish2 = new Fish(this, (1 * 60) + borderUISize + borderPadding/2, game.config.height, 'smallFish', 0, 48, 24).setOrigin(0, 0);
+        this.fish3 = new Fish(this, (4 * 60) + borderUISize + borderPadding/2, game.config.height, 'smallFish', 0, 48, 24).setOrigin(0, 0);
+        this.fish4 = new Fish(this, (5 * 60) + borderUISize + borderPadding/2, game.config.height, 'smallFish', 0, 48, 24).setOrigin(0, 0);
 
         // animation config 
         this.anims.create({
