@@ -1,3 +1,4 @@
+let invulnerable = false;
 class Play extends Phaser.Scene {
     
     constructor() {
@@ -7,6 +8,7 @@ class Play extends Phaser.Scene {
     preload() {
         // load images/tiles
         this.load.image('submarine', './assets/Submarine.png');
+        this.load.image('submarine2', './assets/Submarine2.png');
         this.load.image('smallFish', './assets/fish.png');
         this.load.image('ocean', './assets/ocean.png');
         this.load.image('heart', './assets/heart.png');
@@ -32,9 +34,10 @@ class Play extends Phaser.Scene {
         this.sound.play('sfx_music');
         this.ocean = this.add.tileSprite(0, 0, 480, 640, 'ocean').setOrigin(0,0);
 
-        // Shows heart on screen. Dont remember how to just add images so I just copied the Submarine one and
-        // the heart is currently top left corner. dont know how to move it :/  - Sam 
-        this.lives = new Submarine(this, game.config.width/12, borderUISize / 120, 'heart', 0, 30, 30).setOrigin(0.5, 0);
+        // // Shows heart on screen. Dont remember how to just add images so I just copied the Submarine one and
+        // // the heart is currently top left corner. dont know how to move it :/  - Sam 
+        // // Instead of a physical heart, we could do a submarine picture x #oflives, like Mario.
+        // this.lives = new Submarine(this, borderPadding, borderPadding, 'heart', 0, 30, 30).setOrigin(1, 0.5);
     
         //add sub (p1)
         this.p1Sub = new Submarine(this, game.config.width/2, borderUISize - 42, 'submarine', 0, 42, 30).setOrigin(0.5, 0);
@@ -47,10 +50,10 @@ class Play extends Phaser.Scene {
         
 
         // add 3 fish at different locations;
-        this.fish1 = new Fish(this, 0 * 60 + borderUISize, game.config.height, 'smallFish', 0, 60, 16).setOrigin(0.5, 0);
-        this.fish2 = new Fish(this, 1 * 60 + borderUISize, game.config.height, 'smallFish', 0, 60, 16).setOrigin(0.5, 0);
-        this.fish3 = new Fish(this, 4 * 60 + borderUISize, game.config.height, 'smallFish', 0, 60, 16).setOrigin(0.5, 0);
-        this.fish4 = new Fish(this, 5 * 60 + borderUISize, game.config.height, 'smallFish', 0, 60, 16).setOrigin(0.5, 0);
+        this.fish1 = new Fish(this, 0 * 60 + borderUISize, game.config.height, 'smallFish', 0, 42, 16).setOrigin(0.5, 0);
+        this.fish2 = new Fish(this, 1 * 60 + borderUISize, game.config.height, 'smallFish', 0, 42, 16).setOrigin(0.5, 0);
+        this.fish3 = new Fish(this, 4 * 60 + borderUISize, game.config.height, 'smallFish', 0, 42, 16).setOrigin(0.5, 0);
+        this.fish4 = new Fish(this, 5 * 60 + borderUISize, game.config.height, 'smallFish', 0, 42, 16).setOrigin(0.5, 0);
 
         // animation config 
         this.anims.create({
@@ -77,12 +80,12 @@ class Play extends Phaser.Scene {
             },
             fixedWidth: 100
         }
-        this.scoreLeft = this.add.text(game.config.width - borderPadding, borderPadding, 
-            this.p1Score, scoreConfig).setOrigin(1,0);
+        this.scoreLeft = this.add.text(game.config.width - borderPadding, game.config.height - borderPadding, 
+            this.p1Score, scoreConfig).setOrigin(1,0.5);
 
         // Timer for the game -Neo
         this.timer = this.time.addEvent({
-            delay: 500,
+            delay: 100,
             callback: this.addScore,
             callbackScope: this,
             loop: true
@@ -95,7 +98,7 @@ class Play extends Phaser.Scene {
     update(time, delta) {
         if (!this.gameOver) {
              // Scrolling Background
-            this.ocean.tilePositionY += (5 + Math.floor(this.p1Score/1000)*0.1);
+            this.ocean.tilePositionY += (5 + Math.floor(this.p1Score/1000)*0.05);
             
             // The array will contain number position for the fish,
             // when the fish reach the top, the array will hold different number
@@ -106,39 +109,46 @@ class Play extends Phaser.Scene {
             this.p1Sub.update();
 
             this.fish1.update(arr1[0]);
-            this.fish1.moveSpeed = 5 + Math.floor(this.p1Score/100)*0.1;
+            this.fish1.moveSpeed = 5 + Math.floor(this.p1Score/100)*0.05;
 
             this.fish2.update(arr1[1]);
-            this.fish2.moveSpeed = 5 + Math.floor(this.p1Score/100)*0.1;
+            this.fish2.moveSpeed = 5 + Math.floor(this.p1Score/100)*0.05;
 
             this.fish3.update(arr1[2]);
-            this.fish3.moveSpeed = 5 + Math.floor(this.p1Score/100)*0.1;
+            this.fish3.moveSpeed = 5 + Math.floor(this.p1Score/100)*0.05;
 
             this.fish4.update(arr1[3]);
-            this.fish4.moveSpeed = 5 + Math.floor(this.p1Score/100)*0.1;
+            this.fish4.moveSpeed = 5 + Math.floor(this.p1Score/100)*0.05;
 
             // Time = Score
 
             //check collisions  //we need to add a reset in sub.js  //add if life count is lower than 1, then have it explode.
-            if(this.checkCollision(this.p1Sub, this.fish1)) {
-                console.log("Fish 1");
-                this.subExplode(this.p1Sub);
+            console.log("Invuln status: " + invulnerable);
+            if (!invulnerable) {
+                if (this.checkCollision(this.p1Sub, this.fish1)) {
+                    console.log("Fish 1");
+                    invulnerable = true;
+                    this.invis = this.time.delayedCall(5000, () => {invulnerable = false;}, null, this);
+                }
+                else if (this.checkCollision(this.p1Sub, this.fish2)) {
+                    console.log("Fish 2");
+                    invulnerable = true;
+                    this.invis = this.time.delayedCall(5000, () => {invulnerable = false;}, null, this);
+                }
+                else if (this.checkCollision(this.p1Sub, this.fish3)) {
+                    console.log("Fish 3");
+                    invulnerable = true;
+                    this.invis = this.time.delayedCall(5000, () => {invulnerable = false;}, null, this);
+                }
+                else if (this.checkCollision(this.p1Sub, this.fish4)) {
+                    console.log("Fish 4");
+                    invulnerable = true;
+                    this.invis = this.time.delayedCall(5000, () => {invulnerable = false;}, null, this);
+                }
             }
 
-            if(this.checkCollision(this.p1Sub, this.fish2)) {
-                console.log("Fish 2");
-                this.subExplode(this.p1Sub);
-            }
-
-            if(this.checkCollision(this.p1Sub, this.fish3)) {
-                console.log("Fish 3");
-                this.subExplode(this.p1Sub);
-            }
-
-            if(this.checkCollision(this.p1Sub, this.fish4)) {
-                console.log("Fish 4");
-                this.subExplode(this.p1Sub);
-            }
+            // If life is 0, explode and game over
+            // Code here
         }
         else {
             this.timer.remove();
@@ -153,12 +163,12 @@ class Play extends Phaser.Scene {
         if( Submarine.x < Fish.x + Fish.width &&
             Submarine.x + Submarine.width > Fish.x &&
             Submarine.y < Fish.y + Fish.height &&
-            
             Submarine.height + Submarine.y > Fish.y) {
-                return true;
-            } else {
-                return false;
-            }
+            return true;
+        } 
+        else {
+            return false;
+        }
     }
 
     // returns a randopm integer 0 to 5 with no repeat;
@@ -182,7 +192,6 @@ class Play extends Phaser.Scene {
         boom.anims.play('explode'); 
         //game.settings.gameTimer = game.settings.gameTimer + 2; 
         boom.on('animationcomplete', () => {
-            Submarine.reset(); 
             Submarine.alpha = 1; 
             boom.destroy(); 
         }); 

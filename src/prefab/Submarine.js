@@ -6,7 +6,7 @@ class Submarine extends Phaser.GameObjects.Sprite {
         this.height = len;
         // add objects to scene
         scene.add.existing(this);
-        this.moveSpeed = 8;
+        this.moveSpeed = 10;
     }
 
     update() {
@@ -16,15 +16,4 @@ class Submarine extends Phaser.GameObjects.Sprite {
             this.x += this.moveSpeed;
         }
     }
-
-
-    
-    reset(pos) { 
-        
-        
-
-        this.y = borderUISize - 42 ;
-        this.x = game.config.width/2;
-    }
-    
 }
