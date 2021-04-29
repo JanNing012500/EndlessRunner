@@ -10,6 +10,7 @@ class Play extends Phaser.Scene {
         this.load.image('smallFish', './assets/fish.png');
         this.load.image('ocean', './assets/ocean.png');
         this.load.image('heart', './assets/heart.png');
+        this.load.audio('sfx_music','./assets/Music.wav');
 
         // load spritesheet
         this.load.spritesheet('explosion', './assets/explosion.png', {
@@ -22,6 +23,7 @@ class Play extends Phaser.Scene {
     }
 
     create() {
+        this.sound.play('sfx_music');
         this.ocean = this.add.tileSprite(0, 0, 480, 640, 'ocean').setOrigin(0,0);
 
         // Shows heart on screen. Dont remember how to just add images so I just copied the Submarine one and
@@ -88,7 +90,7 @@ class Play extends Phaser.Scene {
         this.fish3.update(arr1[2]);
         this.fish4.update(arr1[3]);
 
-        //check collisions  //we need to add a reset in sub.js
+        //check collisions  //we need to add a reset in sub.js  //add if life count is lower than 1, then have it explode.
         if(this.checkCollision(this.p1Sub, this.fish1)) {
             //this.p1Sub.reset(); 
             this.subExplode(this.p1Sub);

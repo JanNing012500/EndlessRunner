@@ -19,7 +19,7 @@ class Submarine extends Phaser.GameObjects.Sprite {
 
 
     
-    reset(pos) { //not too sure how to 
+    reset(pos) { 
         
         
 
