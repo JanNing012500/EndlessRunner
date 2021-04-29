@@ -7,7 +7,7 @@ class Fish extends Phaser.GameObjects.Sprite {
 
         this.width = wid;
         this.height = len;
-        this.moveSpeed = 5;
+        this.moveSpeed = 0;
     }
 
     // keep the variable in the parameter so the fish will spawn

@@ -21,18 +21,21 @@ class Play extends Phaser.Scene {
         });
         
     }
+    
 
     create() {
+
+        game.settings = {
+            gameTimer: 2000    
+        }
+        
         this.sound.play('sfx_music');
         this.ocean = this.add.tileSprite(0, 0, 480, 640, 'ocean').setOrigin(0,0);
 
         // Shows heart on screen. Dont remember how to just add images so I just copied the Submarine one and
         // the heart is currently top left corner. dont know how to move it :/  - Sam 
         this.lives = new Submarine(this, game.config.width/12, borderUISize / 120, 'heart', 0, 30, 30).setOrigin(0.5, 0);
-
-        
-          
-        
+    
         //add sub (p1)
         this.p1Sub = new Submarine(this, game.config.width/2, borderUISize - 42, 'submarine', 0, 42, 30).setOrigin(0.5, 0);
 
@@ -60,61 +63,85 @@ class Play extends Phaser.Scene {
             frameRate: 30 
             });
 
+        // Display Timer
+        this.p1Score = 0;
+        let scoreConfig = {
+            fontFamily: 'Courier',
+            fontSize: '28px',
+            backgroundColor: '#F3B141',
+            color: '#843605',
+            align: 'right',
+            padding: {
+            top: 5,
+            bottom: 5,
+            },
+            fixedWidth: 100
+        }
+        this.scoreLeft = this.add.text(game.config.width - borderPadding, borderPadding, 
+            this.p1Score, scoreConfig).setOrigin(1,0);
+
+        // Timer for the game -Neo
+        this.timer = this.time.addEvent({
+            delay: 500,
+            callback: this.addScore,
+            callbackScope: this,
+            loop: true
+        })
 
         //game over
         this.gameOver = false;
     }
 
-    update() {
+    update(time, delta) {
+        if (!this.gameOver) {
+             // Scrolling Background
+            this.ocean.tilePositionY += (5 + Math.floor(this.p1Score/1000)*0.1);
+            
+            // The array will contain number position for the fish,
+            // when the fish reach the top, the array will hold different number
+            var arr1 = [];
+            if (this.fish1.y <= borderUISize - this.fish1.height + 1) {
+                arr1 = this.generateRandom();
+            }
+            this.p1Sub.update();
 
-        /*
-        if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyR)){
-            this.scene.restart();
+            this.fish1.update(arr1[0]);
+            this.fish1.moveSpeed = 5 + Math.floor(this.p1Score/100)*0.1;
+
+            this.fish2.update(arr1[1]);
+            this.fish2.moveSpeed = 5 + Math.floor(this.p1Score/100)*0.1;
+
+            this.fish3.update(arr1[2]);
+            this.fish3.moveSpeed = 5 + Math.floor(this.p1Score/100)*0.1;
+
+            this.fish4.update(arr1[3]);
+            this.fish4.moveSpeed = 5 + Math.floor(this.p1Score/100)*0.1;
+
+            // Time = Score
+
+            //check collisions  //we need to add a reset in sub.js  //add if life count is lower than 1, then have it explode.
+            if(this.checkCollision(this.p1Sub, this.fish1)) {
+                console.log("Fish 1");
+                this.subExplode(this.p1Sub);
+            }
+
+            if(this.checkCollision(this.p1Sub, this.fish2)) {
+                console.log("Fish 2");
+                this.subExplode(this.p1Sub);
+            }
+
+            if(this.checkCollision(this.p1Sub, this.fish3)) {
+                console.log("Fish 3");
+                this.subExplode(this.p1Sub);
+            }
+
+            if(this.checkCollision(this.p1Sub, this.fish4)) {
+                console.log("Fish 4");
+                this.subExplode(this.p1Sub);
+            }
         }
-        */
-
-
-        // Scrolling Background
-        this.ocean.tilePositionY += 5;
-        
-        // The array will contain number position for the fish,
-        // when the fish reach the top, the array will hold different number
-        var arr1 = [];
-        if (this.fish1.y <= borderUISize - this.fish1.height + 1) {
-            arr1 = this.generateRandom();
-        }
-
-        this.p1Sub.update();
-        this.fish1.update(arr1[0]);
-        this.fish2.update(arr1[1]);
-        this.fish3.update(arr1[2]);
-        this.fish4.update(arr1[3]);
-
-        //check collisions  //we need to add a reset in sub.js  //add if life count is lower than 1, then have it explode.
-        if(this.checkCollision(this.p1Sub, this.fish1)) {
-            //this.p1Sub.reset(); 
-            this.subExplode(this.p1Sub);
-        }
-
-        if(this.checkCollision(this.p1Sub, this.fish2)) {
-            //this.p1Sub.reset(); 
-            this.subExplode(this.p1Sub);
-           //this.shipExplode(this.ship5); 
-            //this.clock.delay += 3000;
-        }
-
-        if(this.checkCollision(this.p1Sub, this.fish3)) {
-            //this.p1Sub.reset(); 
-            this.subExplode(this.p1Sub);
-            //this.shipExplode(this.ship5); 
-            //this.clock.delay += 3000;
-        }
-
-        if(this.checkCollision(this.p1Sub, this.fish4)) {
-            //this.p1Sub.reset(); 
-            this.subExplode(this.p1Sub);
-            //this.shipExplode(this.ship5); 
-            //this.clock.delay += 3000;
+        else {
+            this.timer.remove();
         }
 
     }
@@ -162,6 +189,11 @@ class Play extends Phaser.Scene {
         //this.p1Score += ship.points; 
         //this.scoreLeft.text = this.p1Score;
         //this.sound.play('sfx_explosion');
+    }
+
+    addScore() {
+        this.p1Score += 10;
+        this.scoreLeft.text = this.p1Score;
     }
 
 }
