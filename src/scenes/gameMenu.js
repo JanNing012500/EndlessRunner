@@ -16,7 +16,7 @@ class gameMenu extends Phaser.Scene {
 
     
        
-		this.startButton = this.add.sprite(this.centerX(), this.centerY() - 50, 'startButton').setInteractive();
+		this.startButton = this.add.sprite(this.centerX(), this.centerY(), 'startButton').setInteractive();
         
     
         this.startButton.on('pointerdown', function () {
