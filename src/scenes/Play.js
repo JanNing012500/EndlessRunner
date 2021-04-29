@@ -91,26 +91,26 @@ class Play extends Phaser.Scene {
         //check collisions  //we need to add a reset in sub.js
         if(this.checkCollision(this.p1Sub, this.fish1)) {
             //this.p1Sub.reset(); 
-            this.fishExplode(this.fish1);
+            this.subExplode(this.p1Sub);
         }
 
         if(this.checkCollision(this.p1Sub, this.fish2)) {
             //this.p1Sub.reset(); 
-            this.fishExplode(this.fish2);
+            this.subExplode(this.p1Sub);
            //this.shipExplode(this.ship5); 
             //this.clock.delay += 3000;
         }
 
         if(this.checkCollision(this.p1Sub, this.fish3)) {
             //this.p1Sub.reset(); 
-            this.fishExplode(this.fish3);
+            this.subExplode(this.p1Sub);
             //this.shipExplode(this.ship5); 
             //this.clock.delay += 3000;
         }
 
         if(this.checkCollision(this.p1Sub, this.fish4)) {
             //this.p1Sub.reset(); 
-            this.fishExplode(this.fish4);
+            this.subExplode(this.p1Sub);
             //this.shipExplode(this.ship5); 
             //this.clock.delay += 3000;
         }
@@ -146,15 +146,15 @@ class Play extends Phaser.Scene {
         return arr;
     }
 
-    fishExplode(Fish) {
-        Fish.alpha = 0; 
+    subExplode(Submarine) {
+        Submarine.alpha = 0; 
 
-        let boom = this.add.sprite(Fish.x, Fish.y, 'explosion').setOrigin(0, 0); 
+        let boom = this.add.sprite(Submarine.x, Submarine.y, 'explosion').setOrigin(0, 0); 
         boom.anims.play('explode'); 
         //game.settings.gameTimer = game.settings.gameTimer + 2; 
         boom.on('animationcomplete', () => {
-            Fish.reset(); 
-            Fish.alpha = 1; 
+            Submarine.reset(); 
+            Submarine.alpha = 1; 
             boom.destroy(); 
         }); 
         //this.p1Score += ship.points; 

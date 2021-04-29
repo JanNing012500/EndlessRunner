@@ -18,10 +18,10 @@ class Submarine extends Phaser.GameObjects.Sprite {
     }
 
 
-    /*
+    
     reset(pos) {
         this.y = game.config.height ;
         this.x = (pos * 60) + borderUISize;
     }
-    */
+    
 }
