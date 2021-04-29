@@ -7,9 +7,9 @@ class Play extends Phaser.Scene {
 
     preload() {
         // load images/tiles
-        this.load.image('submarine', './assets/Submarine.png');
-        this.load.image('submarine2', './assets/Submarine2.png');
-        this.load.image('smallFish', './assets/fish.png');
+        // this.load.image('submarine', './assets/Submarine.png');
+        // this.load.image('submarine2', './assets/Submarine2.png');
+        // this.load.image('smallFish', './assets/fish.png');
         this.load.image('ocean', './assets/ocean.png');
         this.load.image('heart', './assets/heart.png');
         this.load.audio('sfx_music','./assets/Music.wav');
@@ -40,7 +40,7 @@ class Play extends Phaser.Scene {
         // this.lives = new Submarine(this, borderPadding, borderPadding, 'heart', 0, 30, 30).setOrigin(1, 0.5);
     
         //add sub (p1)
-        this.p1Sub = new Submarine(this, game.config.width/2, borderUISize - 42, 'submarine', 0, 42, 30).setOrigin(0.5, 0);
+        this.p1Sub = new Submarine(this, game.config.width/2, borderUISize - 42, 'submarine', 0, 42, 16).setOrigin(0.5, 0);
 
         // define keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
@@ -126,24 +126,28 @@ class Play extends Phaser.Scene {
             console.log("Invuln status: " + invulnerable);
             if (!invulnerable) {
                 if (this.checkCollision(this.p1Sub, this.fish1)) {
+                    this.p1Sub.setTexture('submarine2');
                     console.log("Fish 1");
                     invulnerable = true;
-                    this.invis = this.time.delayedCall(5000, () => {invulnerable = false;}, null, this);
+                    this.invis = this.time.delayedCall(5000, () => {invulnerable = false, this.p1Sub.setTexture('submarine');}, null, this);
                 }
                 else if (this.checkCollision(this.p1Sub, this.fish2)) {
+                    this.p1Sub.setTexture('submarine2');
                     console.log("Fish 2");
                     invulnerable = true;
-                    this.invis = this.time.delayedCall(5000, () => {invulnerable = false;}, null, this);
+                    this.invis = this.time.delayedCall(5000, () => {invulnerable = false, this.p1Sub.setTexture('submarine');}, null, this);
                 }
                 else if (this.checkCollision(this.p1Sub, this.fish3)) {
+                    this.p1Sub.setTexture('submarine2');
                     console.log("Fish 3");
                     invulnerable = true;
-                    this.invis = this.time.delayedCall(5000, () => {invulnerable = false;}, null, this);
+                    this.invis = this.time.delayedCall(5000, () => {invulnerable = false, this.p1Sub.setTexture('submarine');}, null, this);
                 }
                 else if (this.checkCollision(this.p1Sub, this.fish4)) {
+                    this.p1Sub.setTexture('submarine2');
                     console.log("Fish 4");
                     invulnerable = true;
-                    this.invis = this.time.delayedCall(5000, () => {invulnerable = false;}, null, this);
+                    this.invis = this.time.delayedCall(5000, () => {invulnerable = false, this.p1Sub.setTexture('submarine');}, null, this);
                 }
             }
 
