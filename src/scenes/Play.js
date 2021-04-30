@@ -184,12 +184,6 @@ class Play extends Phaser.Scene {
             // Code here
         }
         else {
-            this.p1Sub.alpha = 0;
-            this.fish1.alpha = 0;
-            this.fish2.alpha = 0;
-            this.fish3.alpha = 0;
-            this.fish4.alpha = 0;
-
             this.fish1.anims.stop('swim');
             this.fish2.anims.stop('swim');
             this.fish3.anims.stop('swim');
@@ -197,6 +191,8 @@ class Play extends Phaser.Scene {
             this.livesLeft.text = this.lives;
             console.log("Game Over");
             this.timer.remove();
+            invulnerable = false;
+            this.scene.start('gameoverscreen');
         }
 
     }
