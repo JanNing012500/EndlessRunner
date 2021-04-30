@@ -17,12 +17,6 @@ class Play extends Phaser.Scene {
         this.load.audio('sfx_music','./assets/Music.wav');
 
         // load spritesheet
-        this.load.spritesheet('explosion', './assets/explosion.png', {
-            frameWidth: 96, 
-            frameHeight: 96, 
-            startFrame: 0, 
-            endFrame: 9
-        });
         this.load.spritesheet('fish', './assets/FishSwim.png', {
             frameWidth: 48, 
             frameHeight: 24, 
@@ -39,16 +33,6 @@ class Play extends Phaser.Scene {
         this.bubble = this.add.tileSprite(0, 0, 480, 640, 'bubble').setOrigin(0,0);
 
         // animation config 
-        this.anims.create({
-            key: 'explode', 
-            frames: this.anims.generateFrameNumbers('explosion', {
-                start: 0, 
-                end: 9,
-                first: 0,
-                repeat: -1
-            }),
-            frameRate: 10
-        });
 
         this.anims.create({
             key: 'swim', 
@@ -200,7 +184,12 @@ class Play extends Phaser.Scene {
             // Code here
         }
         else {
-            this.subExplode(this.p1Sub);
+            this.p1Sub.alpha = 0;
+            this.fish1.alpha = 0;
+            this.fish2.alpha = 0;
+            this.fish3.alpha = 0;
+            this.fish4.alpha = 0;
+
             this.fish1.anims.stop('swim');
             this.fish2.anims.stop('swim');
             this.fish3.anims.stop('swim');
@@ -239,17 +228,6 @@ class Play extends Phaser.Scene {
             }
         } while (arr.length < n);
         return arr;
-    }
-
-    subExplode(Submarine) {
-        // side ship
-        Submarine.alpha = 0; 
-
-        let boom = this.add.sprite(Submarine.x, Submarine.y, 'explosion').setOrigin(0, 0); 
-        boom.anims.play('explode'); 
-        boom.on('animationcomplete', () => {
-            boom.destroy(); 
-        }); 
     }
 
     addScore() {
