@@ -6,20 +6,30 @@ class gameMenu extends Phaser.Scene {
     preload() {
         this.load.image('background1', './assets/MenuBackground.png');
         this.load.image('startButton', './assets/startbutton.png');
+        this.load.image('tutorialButton', './assets/tutorialbuttonnew.png');
 
     }
 
     create() {
       
-        
+        //background image
         this.backgroundImage = this.add.sprite(this.centerX(), this.centerY(), 'background1');
 
     
-       
+       //start button 
 		this.startButton = this.add.sprite(this.centerX(), this.centerY() - 50, 'startButton').setInteractive();
         
     
         this.startButton.on('pointerdown', function () {
+			this.scene.start('playScene');
+		}, this);
+
+
+        //tutorial button
+        this.tutorialButton = this.add.sprite(this.centerX(), this.centerY() + 40, 'tutorialButton').setInteractive();
+        
+    
+        this.tutorialButton.on('pointerdown', function () {
 			this.scene.start('playScene');
 		}, this);
 	}
