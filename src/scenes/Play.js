@@ -28,6 +28,7 @@ class Play extends Phaser.Scene {
     create() {
         this.sound.play('sfx_music');
         this.ocean = this.add.tileSprite(0, 0, 480, 640, 'ocean').setOrigin(0,0);
+        
 
         // // Shows heart on screen. Dont remember how to just add images so I just copied the Submarine one and
         // // the heart is currently top left corner. dont know how to move it :/  - Sam 
@@ -37,7 +38,7 @@ class Play extends Phaser.Scene {
         //add sub (p1)
         this.p1Sub = new Submarine(this, game.config.width/2, borderUISize - 42, 'submarine', 0, 42, 28).setOrigin(0, 0);
         this.lives = 3;
-
+        
         // define keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
@@ -78,6 +79,7 @@ class Play extends Phaser.Scene {
         }
         this.scoreLeft = this.add.text(game.config.width - borderPadding, game.config.height - borderPadding, 
             this.p1Score, scoreConfig).setOrigin(1,0.5);
+ 
 
         // Timer for the game -Neo
         this.timer = this.time.addEvent({
@@ -86,6 +88,10 @@ class Play extends Phaser.Scene {
             callbackScope: this,
             loop: true
         })
+
+         // Adds Player Lives on the bottom 
+        this.livesLeft  = this.add.text(game.config.width - borderPadding, game.config.height - borderPadding, 
+            this.lives, scoreConfig).setOrigin(4.25,0.5);
 
     }
 
@@ -113,6 +119,8 @@ class Play extends Phaser.Scene {
 
             this.fish4.update(arr1[3]);
             this.fish4.moveSpeed = 5 + Math.floor(this.p1Score/100)*0.05;
+
+            this.livesLeft.text = this.lives;
 
             // Time = Score
 
@@ -153,6 +161,7 @@ class Play extends Phaser.Scene {
             // Code here
         }
         else {
+            this.livesLeft.text = this.lives;
             console.log("Game Over");
             this.timer.remove();
         }
