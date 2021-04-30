@@ -92,6 +92,8 @@ class Play extends Phaser.Scene {
          // Adds Player Lives on the bottom 
         this.livesLeft  = this.add.text(game.config.width - borderPadding, game.config.height - borderPadding, 
             this.lives, scoreConfig).setOrigin(4.25,0.5);
+        this.heart = this.add.image(game.config.width - borderPadding, game.config.height - borderPadding, 
+            'heart').setOrigin(4.5,0.5);
 
     }
 
