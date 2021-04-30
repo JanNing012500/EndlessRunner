@@ -19,7 +19,6 @@ class gameMenu extends Phaser.Scene {
        //start button 
 		this.startButton = this.add.sprite(this.centerX(), this.centerY() - 50, 'startButton').setInteractive();
         
-    
         this.startButton.on('pointerdown', function () {
 			this.scene.start('playScene');
 		}, this);
@@ -28,11 +27,13 @@ class gameMenu extends Phaser.Scene {
         //tutorial button
         this.tutorialButton = this.add.sprite(this.centerX(), this.centerY() + 40, 'tutorialButton').setInteractive();
         
-    
         this.tutorialButton.on('pointerdown', function () {
-			this.scene.start('playScene');
+			this.scene.start('tutorial');
 		}, this);
 	}
+
+
+
     centerX() {
         return this.sys.game.config.width / 2;
     }
