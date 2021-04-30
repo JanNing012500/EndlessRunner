@@ -2,7 +2,7 @@ let config = {
     type: Phaser.CANVAS, 
     width: 480,
     height: 640,
-    scene: [ gameMenu, tutorial, gameoverscreen, Play ]
+    scene: [gameMenu,credits, tutorial, gameoverscreen, Play]
 }
 
 let game = new Phaser.Game(config);

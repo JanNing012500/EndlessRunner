@@ -7,6 +7,7 @@ class gameMenu extends Phaser.Scene {
         this.load.image('background1', './assets/MenuBackground.png');
         this.load.image('startButton', './assets/startbutton.png');
         this.load.image('tutorialButton', './assets/tutorialbuttonnew.png');
+        this.load.image('creditsbutton', './assets/creditsbuttonnew.png');
         this.load.image('testbutton', './assets/test123.png');
 
     }
@@ -32,13 +33,21 @@ class gameMenu extends Phaser.Scene {
 			this.scene.start('tutorial');
 		}, this);
 
+        //credits button
+        this.creditsbutton = this.add.sprite(this.centerX(), this.centerY() + 300, 'creditsbutton').setInteractive();
         
-        //game over screen (to test) 
+        this.creditsbutton.on('pointerdown', function () {
+			this.scene.start('credits');
+		}, this);
+
+        /*
+        //game over screen Button(to test) 
         this.testbutton = this.add.sprite(this.centerX(), this.centerY() + 200, 'testbutton').setInteractive();
         
          this.testbutton.on('pointerdown', function () {
              this.scene.start('gameoverscreen');
          }, this);
+         */
 	}
 
 
