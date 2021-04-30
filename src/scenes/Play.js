@@ -8,18 +8,26 @@ class Play extends Phaser.Scene {
     preload() {
         // load images/tiles
         this.load.image('submarine', './assets/Submarine.png');
+        this.load.image('submarineL', './assets/SubmarineL.png');
         this.load.image('submarine2', './assets/Submarine2.png');
-        this.load.image('smallFish', './assets/fish.png');
+        this.load.image('submarineL2', './assets/Submarine2L.png');
         this.load.image('ocean', './assets/ocean.png');
+        this.load.image('bubble', './assets/bubble.png');
         this.load.image('heart', './assets/heart.png');
         this.load.audio('sfx_music','./assets/Music.wav');
 
         // load spritesheet
         this.load.spritesheet('explosion', './assets/explosion.png', {
-            frameWidth: 64, 
-            frameHeight: 32, 
+            frameWidth: 96, 
+            frameHeight: 96, 
             startFrame: 0, 
             endFrame: 9
+        });
+        this.load.spritesheet('fish', './assets/FishSwim.png', {
+            frameWidth: 48, 
+            frameHeight: 24, 
+            startFrame: 0, 
+            endFrame: 3
         });
         
     }
@@ -28,6 +36,27 @@ class Play extends Phaser.Scene {
     create() {
         this.sound.play('sfx_music');
         this.ocean = this.add.tileSprite(0, 0, 480, 640, 'ocean').setOrigin(0,0);
+        this.bubble = this.add.tileSprite(0, 0, 480, 640, 'bubble').setOrigin(0,0);
+
+        // animation config 
+        this.anims.create({
+            key: 'explode', 
+            frames: this.anims.generateFrameNumbers('explosion', {
+                start: 0, 
+                end: 9,
+                first: 0,
+                repeat: -1
+            }),
+            frameRate: 10
+        });
+
+        this.anims.create({
+            key: 'swim', 
+            frames: this.anims.generateFrameNumbers('fish', {start: 0, end: 3}), 
+            repeat: -1,
+            frameRate: 10
+        });
+
         
 
         // // Shows heart on screen. Dont remember how to just add images so I just copied the Submarine one and
@@ -47,21 +76,14 @@ class Play extends Phaser.Scene {
         
 
         // add 3 fish at different locations;
-        this.fish1 = new Fish(this, (0 * 60) + borderUISize + borderPadding/2, game.config.height, 'smallFish', 0, 48, 24).setOrigin(0, 0);
-        this.fish2 = new Fish(this, (1 * 60) + borderUISize + borderPadding/2, game.config.height, 'smallFish', 0, 48, 24).setOrigin(0, 0);
-        this.fish3 = new Fish(this, (4 * 60) + borderUISize + borderPadding/2, game.config.height, 'smallFish', 0, 48, 24).setOrigin(0, 0);
-        this.fish4 = new Fish(this, (5 * 60) + borderUISize + borderPadding/2, game.config.height, 'smallFish', 0, 48, 24).setOrigin(0, 0);
-
-        // animation config 
-        this.anims.create({
-            key: 'explode', 
-            frames: this.anims.generateFrameNumbers('explosion', {
-                start: 0, 
-                end: 9, 
-                first: 0
-            }),
-            frameRate: 30 
-            });
+        this.fish1 = new Fish(this, (0 * 60) + borderUISize + borderPadding/2, game.config.height, 'fish', 0, 48, 24).setOrigin(0, 0);
+        this.fish1.anims.play('swim');
+        this.fish2 = new Fish(this, (1 * 60) + borderUISize + borderPadding/2, game.config.height, 'fish', 0, 48, 24).setOrigin(0, 0);
+        this.fish2.anims.play('swim');
+        this.fish3 = new Fish(this, (4 * 60) + borderUISize + borderPadding/2, game.config.height, 'fish', 0, 48, 24).setOrigin(0, 0);
+        this.fish3.anims.play('swim');
+        this.fish4 = new Fish(this, (5 * 60) + borderUISize + borderPadding/2, game.config.height, 'fish', 0, 48, 24).setOrigin(0, 0);
+        this.fish4.anims.play('swim');
 
         // Display Timer
         this.p1Score = 0;
@@ -83,7 +105,7 @@ class Play extends Phaser.Scene {
 
         // Timer for the game -Neo
         this.timer = this.time.addEvent({
-            delay: 100,
+            delay: 75,
             callback: this.addScore,
             callbackScope: this,
             loop: true
@@ -101,6 +123,7 @@ class Play extends Phaser.Scene {
         if (this.lives != 0) {
              // Scrolling Background
             this.ocean.tilePositionY += (5 + Math.floor(this.p1Score/1000)*0.05);
+            this.bubble.tilePositionY += (4.5 + Math.floor(this.p1Score/1000)*0.05);
             
             // The array will contain number position for the fish,
             // when the fish reach the top, the array will hold different number
@@ -108,6 +131,7 @@ class Play extends Phaser.Scene {
             if (this.fish1.y <= borderUISize - this.fish1.height + 1) {
                 arr1 = this.generateRandom();
             }
+            
             this.p1Sub.update();
 
             this.fish1.update(arr1[0]);
@@ -129,6 +153,12 @@ class Play extends Phaser.Scene {
             //check collisions  //we need to add a reset in sub.js  //add if life count is lower than 1, then have it explode.
             console.log("Invuln status: " + invulnerable);
             if (!invulnerable) {
+                if (keyLEFT.isDown) {
+                    this.p1Sub.setTexture('submarineL');
+                } 
+                if (keyRIGHT.isDown) {
+                    this.p1Sub.setTexture('submarine');
+                }
                 if (this.checkCollision(this.p1Sub, this.fish1)) {
                     this.lives -= 1;
                     this.p1Sub.setTexture('submarine2');
@@ -157,12 +187,24 @@ class Play extends Phaser.Scene {
                     invulnerable = true;
                     this.invis = this.time.delayedCall(5000, () => {invulnerable = false, this.p1Sub.setTexture('submarine');}, null, this);
                 }
+            } else {
+                if (keyLEFT.isDown) {
+                    this.p1Sub.setTexture('submarineL2');
+                } 
+                if (keyRIGHT.isDown) {
+                    this.p1Sub.setTexture('submarine2');
+                }
             }
 
             // If life is 0, explode and game over
             // Code here
         }
         else {
+            this.subExplode(this.p1Sub);
+            this.fish1.anims.stop('swim');
+            this.fish2.anims.stop('swim');
+            this.fish3.anims.stop('swim');
+            this.fish4.anims.stop('swim');
             this.livesLeft.text = this.lives;
             console.log("Game Over");
             this.timer.remove();
@@ -200,18 +242,14 @@ class Play extends Phaser.Scene {
     }
 
     subExplode(Submarine) {
+        // side ship
         Submarine.alpha = 0; 
 
         let boom = this.add.sprite(Submarine.x, Submarine.y, 'explosion').setOrigin(0, 0); 
         boom.anims.play('explode'); 
-        //game.settings.gameTimer = game.settings.gameTimer + 2; 
         boom.on('animationcomplete', () => {
-            Submarine.alpha = 1; 
             boom.destroy(); 
         }); 
-        //this.p1Score += ship.points; 
-        //this.scoreLeft.text = this.p1Score;
-        //this.sound.play('sfx_explosion');
     }
 
     addScore() {
