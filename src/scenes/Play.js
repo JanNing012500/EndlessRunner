@@ -26,11 +26,6 @@ class Play extends Phaser.Scene {
     
 
     create() {
-
-        game.settings = {
-            gameTimer: 2000    
-        }
-        
         this.sound.play('sfx_music');
         this.ocean = this.add.tileSprite(0, 0, 480, 640, 'ocean').setOrigin(0,0);
 
@@ -41,6 +36,7 @@ class Play extends Phaser.Scene {
     
         //add sub (p1)
         this.p1Sub = new Submarine(this, game.config.width/2, borderUISize - 42, 'submarine', 0, 42, 28).setOrigin(0, 0);
+        this.lives = 3;
 
         // define keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
@@ -91,12 +87,10 @@ class Play extends Phaser.Scene {
             loop: true
         })
 
-        //game over
-        this.gameOver = false;
     }
 
     update(time, delta) {
-        if (!this.gameOver) {
+        if (this.lives != 0) {
              // Scrolling Background
             this.ocean.tilePositionY += (5 + Math.floor(this.p1Score/1000)*0.05);
             
@@ -126,26 +120,30 @@ class Play extends Phaser.Scene {
             console.log("Invuln status: " + invulnerable);
             if (!invulnerable) {
                 if (this.checkCollision(this.p1Sub, this.fish1)) {
+                    this.lives -= 1;
                     this.p1Sub.setTexture('submarine2');
-                    console.log("Fish 1");
+                    console.log("Fish 1 (" + this.lives + ")");
                     invulnerable = true;
                     this.invis = this.time.delayedCall(5000, () => {invulnerable = false, this.p1Sub.setTexture('submarine');}, null, this);
                 }
                 else if (this.checkCollision(this.p1Sub, this.fish2)) {
+                    this.lives -= 1;
                     this.p1Sub.setTexture('submarine2');
-                    console.log("Fish 2");
+                    console.log("Fish 2 (" + this.lives + ")");
                     invulnerable = true;
                     this.invis = this.time.delayedCall(5000, () => {invulnerable = false, this.p1Sub.setTexture('submarine');}, null, this);
                 }
                 else if (this.checkCollision(this.p1Sub, this.fish3)) {
+                    this.lives -= 1;
                     this.p1Sub.setTexture('submarine2');
-                    console.log("Fish 3");
+                    console.log("Fish 3 (" + this.lives + ")");
                     invulnerable = true;
                     this.invis = this.time.delayedCall(5000, () => {invulnerable = false, this.p1Sub.setTexture('submarine');}, null, this);
                 }
                 else if (this.checkCollision(this.p1Sub, this.fish4)) {
+                    this.lives -= 1;
                     this.p1Sub.setTexture('submarine2');
-                    console.log("Fish 4");
+                    console.log("Fish 4 (" + this.lives + ")");
                     invulnerable = true;
                     this.invis = this.time.delayedCall(5000, () => {invulnerable = false, this.p1Sub.setTexture('submarine');}, null, this);
                 }
@@ -155,6 +153,7 @@ class Play extends Phaser.Scene {
             // Code here
         }
         else {
+            console.log("Game Over");
             this.timer.remove();
         }
 
