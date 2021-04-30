@@ -13,7 +13,7 @@ class tutorial extends Phaser.Scene {
         //background image
         this.backgroundImage = this.add.sprite(this.centerX(), this.centerY(), 'tutorialbackground');
 
-        //tutorial button
+        //back to menu
         this.MenuButton = this.add.sprite(this.centerX(), this.centerY() + 250, 'MenuButton').setInteractive();
         
         this.MenuButton.on('pointerdown', function () {
