@@ -7,6 +7,7 @@ class gameMenu extends Phaser.Scene {
         this.load.image('background1', './assets/MenuBackground.png');
         this.load.image('startButton', './assets/startbutton.png');
         this.load.image('tutorialButton', './assets/tutorialbuttonnew.png');
+        this.load.image('creditsbutton', './assets/creditsbuttonnew.png');
 
     }
 
@@ -29,6 +30,13 @@ class gameMenu extends Phaser.Scene {
         
         this.tutorialButton.on('pointerdown', function () {
 			this.scene.start('tutorial');
+		}, this);
+
+        //credits button
+        this.creditsbutton = this.add.sprite(this.centerX(), this.centerY() + 300, 'creditsbutton').setInteractive();
+        
+        this.creditsbutton.on('pointerdown', function () {
+			this.scene.start('credits');
 		}, this);
 	}
 
