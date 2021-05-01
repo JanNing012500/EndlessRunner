@@ -28,7 +28,8 @@ class Play extends Phaser.Scene {
     
 
     create() {
-        this.sound.play('sfx_music');
+        this.backgroundMusic = this.sound.add("sfx_music", {volume: .5, loop: true}); 
+        this.backgroundMusic.play(); 
         this.ocean = this.add.tileSprite(0, 0, 480, 640, 'ocean').setOrigin(0,0);
         this.bubble = this.add.tileSprite(0, 0, 480, 640, 'bubble').setOrigin(0,0);
 
