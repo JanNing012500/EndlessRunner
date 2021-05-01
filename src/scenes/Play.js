@@ -191,6 +191,7 @@ class Play extends Phaser.Scene {
             this.livesLeft.text = this.lives;
             console.log("Game Over");
             this.timer.remove();
+            this.game.sound.stopAll(); 
             invulnerable = false;
             this.scene.start('gameoverscreen');
         }
