@@ -16,6 +16,7 @@ class Play extends Phaser.Scene {
         this.load.image('heart', './assets/heart.png');
         this.load.audio('sfx_music','./assets/Music.wav');
         this.load.audio('fish_collision', './assets/Collision.mp3');
+        this.load.audio('game_over_sfx', './assets/sfx_explosion.mp3');
 
         // load spritesheet
         this.load.spritesheet('fish', './assets/FishSwim.png', {
@@ -32,6 +33,7 @@ class Play extends Phaser.Scene {
         this.backgroundMusic = this.sound.add("sfx_music", {volume: .5, loop: true}); 
         this.backgroundMusic.play(); 
         this.fishCollide = this.sound.add("fish_collision", {volume: .5});
+        this.deathSound = this.sound.add('game_over_sfx', {volume: .5}); 
         this.ocean = this.add.tileSprite(0, 0, 480, 640, 'ocean').setOrigin(0,0);
         this.bubble = this.add.tileSprite(0, 0, 480, 640, 'bubble').setOrigin(0,0);
 
@@ -199,6 +201,7 @@ class Play extends Phaser.Scene {
             console.log("Game Over");
             this.timer.remove();
             this.game.sound.stopAll(); 
+            this.deathSound.play(); 
             invulnerable = false;
             this.scene.start('gameoverscreen');
         }

@@ -10,9 +10,12 @@ class gameoverscreen extends Phaser.Scene {
     }
 
     create() {
-      
         //background image
         this.backgroundImage = this.add.sprite(this.centerX(), this.centerY(), 'gameoverbackground');
+
+        // Create the SFX to show you lost by blowing up your ship
+        this.deathSound = this.sound.add('deagame_over_sfx', {volume: .5}); 
+        this.deathSound.play(); 
 
         //play again
         this.tryagainButton = this.add.sprite(this.centerX(), this.centerY() - 50, 'tryagainButton').setInteractive();
