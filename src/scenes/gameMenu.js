@@ -4,7 +4,7 @@ class gameMenu extends Phaser.Scene {
 	}
 
     preload() {
-        this.load.image('background1', './assets/MenuBackground.png');
+        this.load.image('background1', './assets/newMenuBackground.png');
         this.load.image('startButton', './assets/startbutton.png');
         this.load.image('tutorialButton', './assets/tutorialbuttonnew.png');
         this.load.image('creditsbutton', './assets/creditsbuttonnew.png');
