@@ -13,24 +13,27 @@ class gameoverscreen extends Phaser.Scene {
         //background image
         this.backgroundImage = this.add.sprite(this.centerX(), this.centerY(), 'gameoverbackground');
 
-        // Create the SFX to show you lost by blowing up your ship
-        this.deathSound = this.sound.add('deagame_over_sfx', {volume: .5}); 
-        this.deathSound.play(); 
 
         //play again
-        this.tryagainButton = this.add.sprite(this.centerX(), this.centerY() - 50, 'tryagainButton').setInteractive();
+        this.tryagainButton = this.add.sprite(this.centerX(), this.centerY()+20, 'tryagainButton').setInteractive();
         
         this.tryagainButton.on('pointerdown', function () {
 			this.scene.start('playScene');
 		}, this);
 
 
-        //menu
+        //back to menu
         this.MenuButton = this.add.sprite(this.centerX(), this.centerY() + 250, 'MenuButton').setInteractive();
         
         this.MenuButton.on('pointerdown', function () {
 			this.scene.start('gameMenu');
 		}, this);
+
+        /* fix this
+        // Create the SFX to show you lost by blowing up your ship
+        this.deathSound = this.sound.add('deagame_over_sfx', {volume: .5}); 
+        this.deathSound.play(); 
+        */
 	}
 
 
