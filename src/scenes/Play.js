@@ -15,6 +15,7 @@ class Play extends Phaser.Scene {
         this.load.image('bubble', './assets/bubble.png');
         this.load.image('heart', './assets/heart.png');
         this.load.audio('sfx_music','./assets/Music.wav');
+        this.load.audio('fish_collision', './assets/Collision.mp3');
 
         // load spritesheet
         this.load.spritesheet('fish', './assets/FishSwim.png', {
@@ -30,6 +31,7 @@ class Play extends Phaser.Scene {
     create() {
         this.backgroundMusic = this.sound.add("sfx_music", {volume: .5, loop: true}); 
         this.backgroundMusic.play(); 
+        this.fishCollide = this.sound.add("fish_collision", {volume: .5});
         this.ocean = this.add.tileSprite(0, 0, 480, 640, 'ocean').setOrigin(0,0);
         this.bubble = this.add.tileSprite(0, 0, 480, 640, 'bubble').setOrigin(0,0);
 
@@ -145,6 +147,7 @@ class Play extends Phaser.Scene {
                     this.p1Sub.setTexture('submarine');
                 }
                 if (this.checkCollision(this.p1Sub, this.fish1)) {
+                    this.fishCollide.play(); 
                     this.lives -= 1;
                     this.p1Sub.setTexture('submarine2');
                     console.log("Fish 1 (" + this.lives + ")");
@@ -152,6 +155,7 @@ class Play extends Phaser.Scene {
                     this.invis = this.time.delayedCall(5000, () => {invulnerable = false, this.p1Sub.setTexture('submarine');}, null, this);
                 }
                 else if (this.checkCollision(this.p1Sub, this.fish2)) {
+                    this.fishCollide.play(); 
                     this.lives -= 1;
                     this.p1Sub.setTexture('submarine2');
                     console.log("Fish 2 (" + this.lives + ")");
@@ -159,6 +163,7 @@ class Play extends Phaser.Scene {
                     this.invis = this.time.delayedCall(5000, () => {invulnerable = false, this.p1Sub.setTexture('submarine');}, null, this);
                 }
                 else if (this.checkCollision(this.p1Sub, this.fish3)) {
+                    this.fishCollide.play(); 
                     this.lives -= 1;
                     this.p1Sub.setTexture('submarine2');
                     console.log("Fish 3 (" + this.lives + ")");
@@ -166,6 +171,7 @@ class Play extends Phaser.Scene {
                     this.invis = this.time.delayedCall(5000, () => {invulnerable = false, this.p1Sub.setTexture('submarine');}, null, this);
                 }
                 else if (this.checkCollision(this.p1Sub, this.fish4)) {
+                    this.fishCollide.play(); 
                     this.lives -= 1;
                     this.p1Sub.setTexture('submarine2');
                     console.log("Fish 4 (" + this.lives + ")");
