@@ -4,17 +4,17 @@ class credits extends Phaser.Scene {
 	}
 
     preload() {
-        //this.load.image('tutorialbackground', './assets/tutorialbackground.png');
+        this.load.image('tutorialbackground1', './assets/tutorialbackgroundNEW.png');
         this.load.image('MenuButton', './assets/MenuButton.png')
     }
 
     create() {
       
         //background image
-        //this.backgroundImage = this.add.sprite(this.centerX(), this.centerY(), 'tutorialbackground');
+        this.backgroundImage = this.add.sprite(this.centerX(), this.centerY(), 'tutorialbackground1');
 
         //back to menu
-        this.MenuButton = this.add.sprite(this.centerX(), this.centerY() +250, 'MenuButton').setInteractive();
+        this.MenuButton = this.add.sprite(this.centerX()+150, this.centerY() + 275, 'MenuButton').setInteractive();
         
         this.MenuButton.on('pointerdown', function () {
 			this.scene.start('gameMenu');
