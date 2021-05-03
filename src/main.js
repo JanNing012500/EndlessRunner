@@ -1,6 +1,6 @@
 /*
 Team Member: Neo Zhang, Sam Luyen, Jan Ning
-Title: The Yellow Submarine
+Title: The Little Submarine
 Completion Data:
 Creative Tilt:
     Visually, we are pretty proud of how it turned out. It's not too complicated and doesn't feel too clustered.

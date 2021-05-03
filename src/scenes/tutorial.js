@@ -28,10 +28,14 @@ class tutorial extends Phaser.Scene {
         this.backgroundImage = this.add.sprite(this.centerX(), this.centerY(), 'tutorialbackground');
 
         //back to menu
+<<<<<<< HEAD
         this.MenuButton = this.add.sprite(this.centerX(), this.centerY() + 250, 'MenuButton').setInteractive();
 
         // Add Tutorial Text
         this.add.text(game.config.width / 20 , game.config.height / 5 - borderUISize - borderPadding, 'Press ← to move left and Right', tutConfig).setOrigin(0);
+=======
+        this.MenuButton = this.add.sprite(this.centerX(), this.centerY() + 275, 'MenuButton').setInteractive();
+>>>>>>> bc8c9f7ac6c1d4f7749cd089213829d78b321d13
         
         this.MenuButton.on('pointerdown', function () {
 			this.scene.start('gameMenu');
