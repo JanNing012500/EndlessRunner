@@ -8,6 +8,8 @@ class gameMenu extends Phaser.Scene {
         this.load.image('startButton', './assets/startbutton.png');
         this.load.image('tutorialButton', './assets/tutorialbuttonnew.png');
         this.load.image('creditsbutton', './assets/creditsbuttonnew.png');
+        this.load.audio('sfx_select', './assets/start.mp3');
+        this.load.audio('button', './assets/select_button.mp3'); 
 
     }
 
@@ -16,11 +18,11 @@ class gameMenu extends Phaser.Scene {
         //background image
         this.backgroundImage = this.add.sprite(this.centerX(), this.centerY(), 'background1');
 
-    
        //start button 
 		this.startButton = this.add.sprite(this.centerX(), this.centerY() - 50, 'startButton').setInteractive();
         
         this.startButton.on('pointerdown', function () {
+            this.sound.play('sfx_select', {volume: .3});
 			this.scene.start('playScene');
 		}, this);
 
@@ -29,6 +31,7 @@ class gameMenu extends Phaser.Scene {
         this.tutorialButton = this.add.sprite(this.centerX(), this.centerY() + 40, 'tutorialButton').setInteractive();
         
         this.tutorialButton.on('pointerdown', function () {
+            this.sound.play('button', {volume: .3});
 			this.scene.start('tutorial');
 		}, this);
 
@@ -36,6 +39,7 @@ class gameMenu extends Phaser.Scene {
         this.creditsbutton = this.add.sprite(this.centerX(), this.centerY() + 300, 'creditsbutton').setInteractive();
         
         this.creditsbutton.on('pointerdown', function () {
+            this.sound.play('button', {volume: .3});
 			this.scene.start('credits');
 		}, this);
 	}
