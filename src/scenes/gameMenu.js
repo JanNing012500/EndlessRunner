@@ -8,7 +8,7 @@ class gameMenu extends Phaser.Scene {
         this.load.image('startButton', './assets/newstartbutton.png');
         this.load.image('tutorialButton', './assets/tutorialbuttonnew.png');
         this.load.image('creditsbutton', './assets/creditsbuttonnew.png');
-        this.load.audio('sfx_select', './assets/start.mp3');
+        this.load.audio('sfx_select', './assets/start.wav');
         this.load.audio('button', './assets/select_button.mp3'); 
 
     }
