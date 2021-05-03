@@ -6,7 +6,9 @@ class gameoverscreen extends Phaser.Scene {
     preload() {
         this.load.image('gameoverbackground', './assets/gameoverbackground.png');
         this.load.image('tryagainButton', './assets/tryagainButton.png');
-        this.load.image('MenuButton', './assets/MenuButton.png')
+        this.load.image('MenuButton', './assets/MenuButton.png');
+        this.load.audio('sfx_select', './assets/start.wav');
+        this.load.audio('button', './assets/select_button.mp3'); 
     }
 
     create() {
@@ -18,6 +20,7 @@ class gameoverscreen extends Phaser.Scene {
         this.tryagainButton = this.add.sprite(this.centerX(), this.centerY()+20, 'tryagainButton').setInteractive();
         
         this.tryagainButton.on('pointerdown', function () {
+            this.sound.play('sfx_select', {volume: .8});
 			this.scene.start('playScene');
 		}, this);
 
@@ -26,6 +29,7 @@ class gameoverscreen extends Phaser.Scene {
         this.MenuButton = this.add.sprite(this.centerX(), this.centerY() + 250, 'MenuButton').setInteractive();
         
         this.MenuButton.on('pointerdown', function () {
+            this.sound.play('button', {volume: .7});
 			this.scene.start('gameMenu');
 		}, this);
 
