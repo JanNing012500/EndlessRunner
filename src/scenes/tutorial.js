@@ -4,7 +4,7 @@ class tutorial extends Phaser.Scene {
 	}
 
     preload() {
-        this.load.image('tutorialbackground', './assets/tutorialbackground.png');
+        this.load.image('tutorialbackground', './assets/tutorialbackgroundNEW.png');
         this.load.image('MenuButton', './assets/MenuButton.png')
     }
 
