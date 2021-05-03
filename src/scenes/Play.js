@@ -14,7 +14,7 @@ class Play extends Phaser.Scene {
         this.load.image('ocean', './assets/ocean.png');
         this.load.image('bubble', './assets/bubble.png');
         this.load.image('heart', './assets/heart.png');
-        this.load.audio('sfx_music','./assets/Music.wav');
+        this.load.audio('music','./assets/Music.mp3');
         this.load.audio('fish_collision', './assets/Collision.mp3');
         this.load.audio('game_over_sfx', './assets/sfx_explosion.mp3');
 
@@ -30,7 +30,7 @@ class Play extends Phaser.Scene {
     
 
     create() {
-        this.backgroundMusic = this.sound.add("sfx_music", {volume: .5, loop: true}); 
+        this.backgroundMusic = this.sound.add("music", {volume: .5, loop: true}); 
         this.backgroundMusic.play(); 
         this.fishCollide = this.sound.add("fish_collision", {volume: .5});
         this.deathSound = this.sound.add('game_over_sfx', {volume: .5}); 
