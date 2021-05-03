@@ -14,7 +14,7 @@ class Play extends Phaser.Scene {
         this.load.image('ocean', './assets/ocean.png');
         this.load.image('bubble', './assets/bubble.png');
         this.load.image('heart', './assets/heart.png');
-        this.load.audio('sfx_music','./assets/Music.wav');
+        this.load.audio('music','./assets/Music.mp3');
         this.load.audio('fish_collision', './assets/Collision.mp3');
         this.load.audio('game_over_sfx', './assets/sfx_explosion.mp3');
 
@@ -30,7 +30,7 @@ class Play extends Phaser.Scene {
     
 
     create() {
-        this.backgroundMusic = this.sound.add("sfx_music", {volume: .5, loop: true}); 
+        this.backgroundMusic = this.sound.add("music", {volume: .5, loop: true}); 
         this.backgroundMusic.play(); 
         this.fishCollide = this.sound.add("fish_collision", {volume: .5});
         this.deathSound = this.sound.add('game_over_sfx', {volume: .5}); 
@@ -139,8 +139,8 @@ class Play extends Phaser.Scene {
 
             // Time = Score
 
-            //check collisions  //we need to add a reset in sub.js  //add if life count is lower than 1, then have it explode.
-            console.log("Invuln status: " + invulnerable);
+            // check collisions  //we need to add a reset in sub.js  //add if life count is lower than 1, then have it explode.
+            // console.log("Invuln status: " + invulnerable);
             if (!invulnerable) {
                 if (keyLEFT.isDown) {
                     this.p1Sub.setTexture('submarineL');
@@ -198,7 +198,7 @@ class Play extends Phaser.Scene {
             this.fish3.anims.stop('swim');
             this.fish4.anims.stop('swim');
             this.livesLeft.text = this.lives;
-            console.log("Game Over");
+            // console.log("Game Over");
             this.timer.remove();
             this.game.sound.stopAll(); 
             this.deathSound.play(); 
