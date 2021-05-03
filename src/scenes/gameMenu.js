@@ -31,7 +31,7 @@ class gameMenu extends Phaser.Scene {
         this.tutorialButton = this.add.sprite(this.centerX(), this.centerY() + 40, 'tutorialButton').setInteractive();
         
         this.tutorialButton.on('pointerdown', function () {
-            this.sound.play('button', {volume: .3});
+            this.sound.play('button', {volume: .7});
 			this.scene.start('tutorial');
 		}, this);
 
@@ -39,7 +39,7 @@ class gameMenu extends Phaser.Scene {
         this.creditsbutton = this.add.sprite(this.centerX(), this.centerY() + 300, 'creditsbutton').setInteractive();
         
         this.creditsbutton.on('pointerdown', function () {
-            this.sound.play('button', {volume: .3});
+            this.sound.play('button', {volume: .7});
 			this.scene.start('credits');
 		}, this);
 	}
