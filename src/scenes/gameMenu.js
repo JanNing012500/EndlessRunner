@@ -22,7 +22,7 @@ class gameMenu extends Phaser.Scene {
 		this.startButton = this.add.sprite(this.centerX(), this.centerY() - 50, 'startButton').setInteractive();
         
         this.startButton.on('pointerdown', function () {
-            this.sound.play('sfx_select', {volume: .3});
+            this.sound.play('sfx_select', {volume: .8});
 			this.scene.start('playScene');
 		}, this);
 

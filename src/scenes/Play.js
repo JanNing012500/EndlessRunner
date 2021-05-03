@@ -16,7 +16,7 @@ class Play extends Phaser.Scene {
         this.load.image('heart', './assets/heart.png');
         this.load.audio('music','./assets/Music.mp3');
         this.load.audio('fish_collision', './assets/Collision.mp3');
-        this.load.audio('game_over_sfx', './assets/sfx_explosion.mp3');
+        this.load.audio('game_over_sfx', './assets/sfx_explosion.wav');
 
         // load spritesheet
         this.load.spritesheet('fish', './assets/FishSwim.png', {
