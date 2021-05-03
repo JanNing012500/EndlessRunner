@@ -139,8 +139,8 @@ class Play extends Phaser.Scene {
 
             // Time = Score
 
-            //check collisions  //we need to add a reset in sub.js  //add if life count is lower than 1, then have it explode.
-            console.log("Invuln status: " + invulnerable);
+            // check collisions  //we need to add a reset in sub.js  //add if life count is lower than 1, then have it explode.
+            // console.log("Invuln status: " + invulnerable);
             if (!invulnerable) {
                 if (keyLEFT.isDown) {
                     this.p1Sub.setTexture('submarineL');
@@ -198,7 +198,7 @@ class Play extends Phaser.Scene {
             this.fish3.anims.stop('swim');
             this.fish4.anims.stop('swim');
             this.livesLeft.text = this.lives;
-            console.log("Game Over");
+            // console.log("Game Over");
             this.timer.remove();
             this.game.sound.stopAll(); 
             this.deathSound.play(); 
